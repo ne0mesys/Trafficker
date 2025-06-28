@@ -1,6 +1,6 @@
 #!/bin/bash
 
-#Colors
+# Colors
 green="\e[0;32m\033[1m"
 end="\033[0m\e[0m"
 red="\e[0;31m\033[1m"
@@ -10,6 +10,7 @@ purple="\e[0;35m\033[1m"
 turquoise="\e[0;36m\033[1m"
 gray="\e[0;37m\033[1m"
 
+# Root checker
 function checkRoot(){
 if [ "$EUID" -ne 0 ];then
   echo -e "\n${red}[!] You are not root. Please, execute the program as root, as it needs root privileges!${end}\n"
@@ -19,6 +20,7 @@ fi
 
 checkRoot
 
+# Checker of the Forwarding option 
 function checkNetSettings(){
   if [ "$(cat /proc/sys/net/ipv4/ip_forward)" -ne "1" ]; then
     echo -e "\n${red}[!] IP Forwarding is DISABLED:${end}"
@@ -34,6 +36,7 @@ function checkNetSettings(){
   fi
 }
 
+# Help panel for all the possible parameters
 function helpPanel(){
   echo -e "\n${yellow}[+]${end}${gray} Usage:${end}"
   echo -e "\n\t${purple}-t${end}${gray} [target]${end}${purple} -r${end}${gray} [host]${end}${purple} -i${end}${gray} [interface]${end}${purple} -o${end}${gray} [time]"
@@ -43,7 +46,7 @@ function helpPanel(){
   echo -e "\t${purple}-r${end}${gray}) Selects the host.${end}"
   echo -e "\t${purple}-o${end}${gray}) Sets the time of the spoofing (10s/30m/...).${end}"
   echo -e "\t${purple}-h${end}${gray}) Shows the help panel.${end}\n"
-  echo -e "\n${green} By ne0mesys${end}"
+  echo -e "\n${green}[+] By ne0mesys${end}"
 }
 
 checkNetSettings
@@ -262,22 +265,27 @@ declare -i host_clerk=0
 declare -i interface_clerk=0
 declare -i time_clerk=0
 
-while getopts "t:r:i:o:sh" arg; do 
+while getopts ":t:r:i:o:sh" arg; do 
   case $arg in 
     s) let parameter_counter+=1;;
-    t) target="$OPTARG"; ip_clerk=1;;
-    r) host="$OPTARG"; host_clerk=1;;
-    i) interface="$OPTARG"; interface_clerk=1;;
-    o) time="$OPTARG"; time_clerk=1;;
+    t) target=$OPTARG; ip_clerk=1;;
+    r) host=$OPTARG; host_clerk=1;;
+    i) interface=$OPTARG; interface_clerk=1;;
+    o) time=$OPTARG; time_clerk=1;;
     h) ;;
+    \?) 
+      echo -e "\n${red}[!] Invalid option: ${end}${blue}-$OPTARG${end}" # When a parameter that doesn't exist is input
+      exit 1;;
+    :) 
+      echo -e "\n${red}[!] Error: Option${end}${blue} -$OPTARG${end}${red} requires an argument.${end}\n" # When a parameter is called without an argument
+      exit 1;;
   esac
 done
 
 if [ $parameter_counter -eq 1 ]; then
   scanning_hosts
-elif [ "$ip_clerk" -eq 1 ] && [ "$host_clerk" -eq 1 ] && [ "$interface_clerk" -eq 1 ] && [ "$time_clerk" -eq 1 ];then
+elif [ "$ip_clerk" -eq 1 ] && [ "$host_clerk" -eq 1 ] && [ "$interface_clerk" -eq 1 ] && [ "$time_clerk" -eq 1 ]; then
   arping $ip_clerk $host_clerk $interface_clerk $time_clerk
 else 
   helpPanel
-fi 
-
+fi
