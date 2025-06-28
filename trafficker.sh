@@ -43,6 +43,7 @@ function helpPanel(){
   echo -e "\t${purple}-r${end}${gray}) Selects the host.${end}"
   echo -e "\t${purple}-o${end}${gray}) Sets the time of the spoofing (10s/30m/...).${end}"
   echo -e "\t${purple}-h${end}${gray}) Shows the help panel.${end}\n"
+  echo -e "\n${green} By ne0mesys${end}"
 }
 
 checkNetSettings
