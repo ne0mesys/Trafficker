@@ -1,10 +1,11 @@
-# Trafficker.sh by ne0mesys
+# 📡 Trafficker.sh by ne0mesys
 ***This script has been created by ne0mesys and serves as an automation tool to steal HTTP credentials that travel through our network, hope you guys like it ;)***
 
 ## Welcome
 
 This tool is a Bash-Based network analysis and spoofing tool designed for ethical hacking and penetration testing purposes. It performs **ARP Spoofing** and **Packet Sniffing** on a local network 
-to intercept HTTP credentials such as usernames and passwords sent in plain text. This tool serves as an automation tool for pentesters, as it uses **arpspoof** and **tcpdump** as main help for the script. 
+to intercept HTTP credentials such as usernames and passwords sent in plain text. This tool serves as an automation tool for pentesters, as it uses **arpspoof** and **tcpdump** as main help for the script.
+This tool is well-known as a **MITM (Man-In-The-Middle) Attack**.
 
 
 Please! Read the **Requirements** section, in order to have all previous software downloaded.
