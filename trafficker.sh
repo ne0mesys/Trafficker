@@ -13,7 +13,7 @@ gray="\e[0;37m\033[1m"
 # Root checker
 function checkRoot(){
 if [ "$EUID" -ne 0 ];then
-  echo -e "\n${red}[!] You are not root. Please, execute the program as root, as it needs root privileges!${end}\n"
+  echo -e "\n${red}[!] You are not root. Please, execute the program as root, since it needs root privileges!${end}\n"
   exit 1
 fi 
 }
