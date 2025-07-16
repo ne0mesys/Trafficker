@@ -61,7 +61,7 @@ function ctrl_c(){
 trap ctrl_c INT
 
 # Variables
-IP=$(ifconfig | head -n 2 | grep "inet" | awk '{print $2}')
+IP=$(ifconfig | grep "inet" | grep -v "172" | head -n 1| awk '{print $2}')
 Base_IP=$(echo "$IP" | cut -d '.' -f1-3)
 
 function scanning_hosts(){
